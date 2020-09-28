@@ -8,10 +8,17 @@ using UnityEngine.Events;
 /// </summary>
 [Serializable]
 public class Command
-{   
-    [SerializeField] private string phrase = "";
+{
+    [Tooltip("The name of thie command.")]
+    [SerializeField] private string command = null;
+    [Tooltip("The Phrase that need to be said to activate the corresponding Action.")]
+    [SerializeField] private string[] activationPhrases = null;
+    [Tooltip("The Action that is called when one of the ActivationPhrases is recognizet.")]
     [SerializeField] private UnityEvent action = null;
 
-    public string Phrase { get { return this.phrase; } }
+    /// <summary>
+    /// Returns an array of all the possible Activation Phrases for this command.
+    /// </summary>
+    public string[] ActivationPhrases { get { return this.activationPhrases; } }
     public UnityEvent Action { get { return this.action; } }
 }

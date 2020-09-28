@@ -12,6 +12,7 @@ using UnityEngine.Windows.Speech;
 public class SpeechRecognizer : MonoBehaviour
 {
     #region Variables
+    [SerializeField] private ConfidenceLevel minimumConfidence = ConfidenceLevel.Medium;
     [SerializeField] private Command[] commands = null;
     private readonly Dictionary<string, Action> keywordActions = new Dictionary<string, Action>();
     private KeywordRecognizer recognizer = null;
@@ -33,7 +34,10 @@ public class SpeechRecognizer : MonoBehaviour
     {
         foreach (Command command in commands)
         {
-            keywordActions.Add(command.Phrase, command.Action.Invoke);
+            foreach (string phrase in command.ActivationPhrases)
+            {
+                keywordActions.Add(phrase, command.Action.Invoke);
+            }
         }
     }
     /// <summary>
@@ -43,7 +47,7 @@ public class SpeechRecognizer : MonoBehaviour
     private void SetupRecognizer()
     {
         //add keywords to recognizer
-        recognizer = new KeywordRecognizer(keywordActions.Keys.ToArray());
+        recognizer = new KeywordRecognizer(keywordActions.Keys.ToArray(), minimumConfidence);
         recognizer.OnPhraseRecognized += OnKeywordRecognition;
 
         //start recognizer
