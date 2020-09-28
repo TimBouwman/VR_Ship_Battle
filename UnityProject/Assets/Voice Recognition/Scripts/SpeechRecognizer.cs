@@ -38,6 +38,7 @@ public class SpeechRecognizer : MonoBehaviour
             {
                 keywordActions.Add(phrase, command.Action.Invoke);
             }
+            Debug.Log(command.CommandName + " is successfully added to the Dictionary.");
         }
     }
     /// <summary>

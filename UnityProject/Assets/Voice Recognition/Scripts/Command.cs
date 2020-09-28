@@ -10,12 +10,13 @@ using UnityEngine.Events;
 public class Command
 {
     [Tooltip("The name of thie command.")]
-    [SerializeField] private string command = null;
+    [SerializeField] private string commandName = null;
     [Tooltip("The Phrase that need to be said to activate the corresponding Action.")]
     [SerializeField] private string[] activationPhrases = null;
     [Tooltip("The Action that is called when one of the ActivationPhrases is recognizet.")]
     [SerializeField] private UnityEvent action = null;
 
+    public string CommandName { get { return this.commandName; } }
     /// <summary>
     /// Returns an array of all the possible Activation Phrases for this command.
     /// </summary>
