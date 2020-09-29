@@ -15,6 +15,7 @@ public class Cannons : MonoBehaviour
     private Transform[] muzzles;
     private VisualEffect[] Particles;
     private AudioSource[] audioSources;
+    private Animator[] animators;
     private bool reloaded = true;
     [SerializeField] float minDelay = 0.05f, maxDelay = 0.2f;
     #endregion
@@ -33,6 +34,7 @@ public class Cannons : MonoBehaviour
         muzzles = new Transform[cannons.Length];
         Particles = new VisualEffect[cannons.Length];
         audioSources = new AudioSource[cannons.Length];
+        animators = new Animator[cannons.Length];
 
         for (int i = 0; i < cannons.Length; i++)
         {
@@ -40,6 +42,7 @@ public class Cannons : MonoBehaviour
             muzzles[i] = cannons[i].transform.GetChild(0);
             Particles[i] = muzzles[i].GetChild(0).GetComponent<VisualEffect>();
             audioSources[i] = muzzles[i].GetChild(0).GetComponent<AudioSource>();
+            animators[i] = cannons[i].transform.GetChild(1).GetComponent<Animator>();
         }
     }
 
@@ -58,13 +61,15 @@ public class Cannons : MonoBehaviour
             //Spawn and shoot cannon ball.
             Debug.Log("Fire!!!");
 
-            //Play recoil animation.
-
+            //Play particle effect.
+            Particles[i].Play();
             //Play sound.
             audioSources[i].Play();
 
-            //Play particle effect.
-            Particles[i].Play();
+            //Play random recoil animation.
+            int rnd = Random.Range(1, 3);
+            animators[i].SetInteger("Index", rnd);
+            animators[i].SetTrigger("Fire");
 
             //Add delay.
             float delay = Random.Range(minDelay, maxDelay);
