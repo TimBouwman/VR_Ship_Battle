@@ -3,6 +3,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.VFX;
 
 /// <summary>
 /// 
@@ -11,7 +12,9 @@ public class Cannons : MonoBehaviour
 {
     #region Variables
     [SerializeField] private GameObject[] cannons = null;
-    private List<Transform> muzzles = new List<Transform>();
+    private Transform[] muzzles;
+    private VisualEffect[] Particles;
+    private AudioSource[] audioSources;
     private bool reloaded = true;
     [SerializeField] float minDelay = 0.05f, maxDelay = 0.2f;
     #endregion
@@ -26,15 +29,17 @@ public class Cannons : MonoBehaviour
     #region Custom Methods
     private void ConfigureCannons()
     {
+        //Set Size of arrays.
+        muzzles = new Transform[cannons.Length];
+        Particles = new VisualEffect[cannons.Length];
+        audioSources = new AudioSource[cannons.Length];
+
         for (int i = 0; i < cannons.Length; i++)
         {
-            //Add muzzles to list
-            foreach (Transform muzzle in cannons[i].transform.GetComponentsInChildren<Transform>())
-            {
-                muzzles.Add(muzzle);
-            }
-
-            //Add animator to array
+            //Fill arrays.
+            muzzles[i] = cannons[i].transform.GetChild(0);
+            Particles[i] = muzzles[i].GetChild(0).GetComponent<VisualEffect>();
+            audioSources[i] = muzzles[i].GetChild(0).GetComponent<AudioSource>();
         }
     }
 
@@ -50,18 +55,18 @@ public class Cannons : MonoBehaviour
     {
         for (int i = 0; i < cannons.Length; i++)
         {
-            //spawn and shoot cannon ball
+            //Spawn and shoot cannon ball.
             Debug.Log("Fire!!!");
 
-            //play recoil animation
+            //Play recoil animation.
 
-                
-            //play sound
+            //Play sound.
+            audioSources[i].Play();
 
-                
-            //play particle effect
+            //Play particle effect.
+            Particles[i].Play();
 
-            //add delay
+            //Add delay.
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
         }
