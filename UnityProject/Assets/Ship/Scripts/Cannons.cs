@@ -44,17 +44,18 @@ public class Cannons : MonoBehaviour
             audioSources[i] = muzzles[i].GetChild(0).GetComponent<AudioSource>();
             animators[i] = cannons[i].transform.GetChild(1).GetComponent<Animator>();
         }
+        Debug.Log(cannons.Length + " cannons successfully configured.");
     }
 
     public void Fire()
     {
         if (reloaded)
         {
-            StartCoroutine(test());
+            StartCoroutine(FireCoroutine());
         }
     }
 
-    private IEnumerator test()
+    private IEnumerator FireCoroutine()
     {
         for (int i = 0; i < cannons.Length; i++)
         {
@@ -75,7 +76,7 @@ public class Cannons : MonoBehaviour
             float delay = Random.Range(minDelay, maxDelay);
             yield return new WaitForSeconds(delay);
         }
-        StopCoroutine(test());
+        StopCoroutine(FireCoroutine());
     }
     #endregion
 }

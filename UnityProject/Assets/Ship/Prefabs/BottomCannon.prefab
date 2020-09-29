@@ -175,7 +175,7 @@ GameObject:
   - component: {fileID: 8009263063574318447}
   - component: {fileID: 5853830282730249324}
   m_Layer: 0
-  m_Name: CannonFire
+  m_Name: Cannon Effects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
