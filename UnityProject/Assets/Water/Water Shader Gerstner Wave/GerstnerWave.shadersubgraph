@@ -313,7 +313,7 @@
     "m_Groups": [
         {
             "m_GuidSerialized": "f658fed9-8891-4846-b587-166006487cf0",
-            "m_Title": "X Component",
+            "m_Title": "X",
             "m_Position": {
                 "x": -1226.7291259765625,
                 "y": -638.3704833984375
@@ -321,7 +321,7 @@
         },
         {
             "m_GuidSerialized": "dc7f26e0-8e2e-4df1-9681-2c6a9c9938c5",
-            "m_Title": "Y Component",
+            "m_Title": "Y",
             "m_Position": {
                 "x": -1228.0,
                 "y": 77.9999771118164
@@ -329,7 +329,7 @@
         },
         {
             "m_GuidSerialized": "d9d437da-454a-408a-8c8a-7911efe56cf8",
-            "m_Title": "z Component",
+            "m_Title": "Z",
             "m_Position": {
                 "x": -1220.9998779296875,
                 "y": 298.99993896484377
