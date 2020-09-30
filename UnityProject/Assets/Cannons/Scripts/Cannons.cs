@@ -13,7 +13,7 @@ public class Cannons : MonoBehaviour
     #region Variables
     [SerializeField] private GameObject[] cannons = null;
     private Transform[] muzzles;
-    private VisualEffect[] Particles;
+    private VisualEffect[] particles;
     private AudioSource[] audioSources;
     private Animator[] animators;
     private bool reloaded = true;
@@ -32,7 +32,7 @@ public class Cannons : MonoBehaviour
     {
         //Set Size of arrays.
         muzzles = new Transform[cannons.Length];
-        Particles = new VisualEffect[cannons.Length];
+        particles = new VisualEffect[cannons.Length];
         audioSources = new AudioSource[cannons.Length];
         animators = new Animator[cannons.Length];
 
@@ -40,9 +40,12 @@ public class Cannons : MonoBehaviour
         {
             //Fill arrays.
             muzzles[i] = cannons[i].transform.GetChild(0);
-            Particles[i] = muzzles[i].GetChild(0).GetComponent<VisualEffect>();
+            particles[i] = muzzles[i].GetChild(0).GetComponent<VisualEffect>();
             audioSources[i] = muzzles[i].GetChild(0).GetComponent<AudioSource>();
             animators[i] = cannons[i].transform.GetChild(1).GetComponent<Animator>();
+
+            //Remove particle parent
+            particles[i].transform.parent = null;
         }
         Debug.Log(cannons.Length + " cannons successfully configured.");
     }
@@ -63,7 +66,10 @@ public class Cannons : MonoBehaviour
             Debug.Log("Fire!!!");
 
             //Play particle effect.
-            Particles[i].Play();
+            particles[i].transform.position = muzzles[i].position;
+            particles[i].transform.rotation = muzzles[i].rotation;
+            particles[i].Play();
+
             //Play sound.
             audioSources[i].Play();
 
