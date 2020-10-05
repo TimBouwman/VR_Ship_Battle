@@ -43,17 +43,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590ee13990c39a841a24d1c50f535baa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minimumConfidence: 1
+  minimumConfidence: 2
   commands:
-  - command: Fire Cannons
+  - commandName: Fire Left Cannons
     activationPhrases:
-    - hello
-    - test
+    - fire port side cannons
+    - fire port cannons
+    - fire left cannons
     action:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
-          m_MethodName: test
+          m_MethodName: Fire
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandName: Fire Right Cannons
+    activationPhrases:
+    - fire starboard side cannons
+    - fire starboard cannons
+    - fire right cannons
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_MethodName: Fire
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - commandName: Fire Front Cannons
+    activationPhrases:
+    - fire front cannons
+    - fire front facing cannons
+    action:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_MethodName: Fire
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

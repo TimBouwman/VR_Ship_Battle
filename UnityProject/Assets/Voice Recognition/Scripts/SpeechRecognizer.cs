@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Windows.Speech;
 
 /// <summary>
@@ -11,6 +12,24 @@ using UnityEngine.Windows.Speech;
 /// </summary>
 public class SpeechRecognizer : MonoBehaviour
 {
+    [Serializable]
+    public class Command
+    {
+        [Tooltip("The name of this command.")]
+        [SerializeField] private string commandName = null;
+        [Tooltip("The Phrase that need to be said to activate the corresponding Action.")]
+        [SerializeField] private string[] activationPhrases = null;
+        [Tooltip("The Action that is called when one of the ActivationPhrases is recognizet.")]
+        [SerializeField] private UnityEvent action = null;
+
+        public string CommandName { get { return this.commandName; } }
+        /// <summary>
+        /// Returns an array of all the possible Activation Phrases for this command.
+        /// </summary>
+        public string[] ActivationPhrases { get { return this.activationPhrases; } }
+        public UnityEvent Action { get { return this.action; } }
+    }
+
     #region Variables
     [SerializeField] private ConfidenceLevel minimumConfidence = ConfidenceLevel.Medium;
     [SerializeField] private Command[] commands = null;

@@ -18,6 +18,7 @@ public class Cannons : MonoBehaviour
     private Animator[] animators;
     private bool reloaded = true;
     [SerializeField] float minDelay = 0.05f, maxDelay = 0.2f;
+    private ObjectPooler objectPooler = null;
     #endregion
 
     #region Unity Methods
@@ -30,6 +31,8 @@ public class Cannons : MonoBehaviour
     #region Custom Methods
     private void ConfigureCannons()
     {
+        objectPooler = ObjectPooler.Instance;
+
         //Set Size of arrays.
         muzzles = new Transform[cannons.Length];
         particles = new VisualEffect[cannons.Length];
@@ -45,7 +48,7 @@ public class Cannons : MonoBehaviour
             animators[i] = cannons[i].transform.GetChild(1).GetComponent<Animator>();
 
             //Remove particle parent
-            particles[i].transform.parent = null;
+            //particles[i].transform.parent = null;
         }
         Debug.Log(cannons.Length + " cannons successfully configured.");
     }
@@ -63,11 +66,11 @@ public class Cannons : MonoBehaviour
         for (int i = 0; i < cannons.Length; i++)
         {
             //Spawn and shoot cannon ball.
-            Debug.Log("Fire!!!");
+            objectPooler.SpawnFromPool("CannonBalls", muzzles[i].position, muzzles[i].rotation);
 
             //Play particle effect.
-            particles[i].transform.position = muzzles[i].position;
-            particles[i].transform.rotation = muzzles[i].rotation;
+            //particles[i].transform.position = muzzles[i].position;
+            //particles[i].transform.rotation = muzzles[i].rotation;
             particles[i].Play();
 
             //Play sound.

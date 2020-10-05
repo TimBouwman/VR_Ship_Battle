@@ -11,7 +11,6 @@ public class FloatPoint : MonoBehaviour
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private float depthBeforeSubmerged = 1f;
     [SerializeField] private float displacementAmount = 3f;
-    [SerializeField] private float waveHeight = 0f;
     [SerializeField] private int FloatPointAmount = 1;
     [Header("Drag")]
     [SerializeField] private float waterDrag = 0.99f;
@@ -31,6 +30,7 @@ public class FloatPoint : MonoBehaviour
     {
         rb.AddForceAtPosition(Physics.gravity / FloatPointAmount, this.transform.position, ForceMode.Acceleration);
 
+        float waveHeight = WaveManager.instance.GetWaveHeight(this.transform.position.x);
         if (this.transform.position.y < waveHeight)
         {
             float displacementMultiplier = Mathf.Clamp01((waveHeight - this.transform.position.y) / depthBeforeSubmerged) * displacementAmount;
