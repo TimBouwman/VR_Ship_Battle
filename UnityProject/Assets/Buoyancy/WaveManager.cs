@@ -11,10 +11,12 @@ public class WaveManager : MonoBehaviour
     #region Variables
     public static WaveManager instance;
 
-    [SerializeField] private float amplitude = 1f, lenght = 2f, speed = 1f, offset = 0f;
+    [SerializeField] private Vector4 timeScale;
+    [SerializeField] private float phase, gravity, depth, amplitude1, amplitude2, amplitude3, amplitude4;
+    [SerializeField] private Vector3 direction1, direction2, direction3, direction4;
     #endregion
 
-    #region Unity Methods
+    #region Singleton
     private void Awake()
     {
         if (instance == null)
@@ -26,31 +28,26 @@ public class WaveManager : MonoBehaviour
             Destroy(this);
         }
     }
-
-    private void FixedUpdate()
-    {
-        offset += Time.deltaTime * speed;
-    }
     #endregion
 
     #region Custom Methods
-    public float GetWaveHeight(float x)
+    public float GetWaveHeight(Vector3 pos)
     {
-        return amplitude * Mathf.Sin(x / lenght + offset);
+        return GerstnerDisplacement(pos, phase, timeScale * Time.time, gravity, depth, amplitude1, amplitude2, amplitude3, amplitude4, direction1, direction2, direction3, direction4).y;
     }
-    public float Frequenty(float depth, Vector3 direction, float gravity)
+    private float Frequenty(float depth, Vector3 direction, float gravity)
     {
         float x = Mathf.Sqrt(Mathf.Pow(direction.x, 2) + Mathf.Pow(direction.y, 2) + Mathf.Pow(direction.z, 2));
         float y = (float)System.Math.Tanh((x * depth) * gravity);
         return Mathf.Sqrt(x * y);
     }
-    public float Theta(Vector3 position, float phase, float time, float gravity, float depth, float amplitude, Vector3 direction)
+    private float Theta(Vector3 position, float phase, float time, float gravity, float depth, float amplitude, Vector3 direction)
     {
         float x = position.x * direction.x + position.z * direction.z;
         float y = Frequenty(depth, direction, gravity) * time;
         return x - y- phase;
     }
-    public Vector3 GerstnerWave(Vector3 position, float phase, float time, float gravity, float depth, float amplitude, Vector3 direction)
+    private Vector3 GerstnerWave(Vector3 position, float phase, float time, float gravity, float depth, float amplitude, Vector3 direction)
     {
         float theta = Theta(position, phase, time, gravity, depth, amplitude, direction);
 
@@ -73,12 +70,11 @@ public class WaveManager : MonoBehaviour
 
         return new Vector3(x, y, z);
     }
-    public Vector3 GerstnerDisplacement(Vector3 position, float phase, Vector4 time, float gravity, float depth, float amplitude1, float amplitude2, float amplitude3, float amplitude4, Vector3 direction1, Vector3 direction2, Vector3 direction3, Vector3 direction4)
+    private Vector3 GerstnerDisplacement(Vector3 position, float phase, Vector4 time, float gravity, float depth, float amplitude1, float amplitude2, float amplitude3, float amplitude4, Vector3 direction1, Vector3 direction2, Vector3 direction3, Vector3 direction4)
     {
-        Vector3 x = GerstnerWave(position, phase, time.x, gravity, depth, amplitude1, direction1) + GerstnerWave(position, phase, time.x, gravity, depth, amplitude2, direction2);
-        Vector3 y = GerstnerWave(position, phase, time.x, gravity, depth, amplitude3, direction3) + GerstnerWave(position, phase, time.x, gravity, depth, amplitude4, direction4);
+        Vector3 x = GerstnerWave(position, phase, time.x, gravity, depth, amplitude1, direction1) + GerstnerWave(position, phase, time.y, gravity, depth, amplitude2, direction2);
+        Vector3 y = GerstnerWave(position, phase, time.z, gravity, depth, amplitude3, direction3) + GerstnerWave(position, phase, time.w, gravity, depth, amplitude4, direction4);
         return (x + y) + position;
     }
-
     #endregion
 }

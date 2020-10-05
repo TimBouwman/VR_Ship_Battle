@@ -30,7 +30,7 @@ public class FloatPoint : MonoBehaviour
     {
         rb.AddForceAtPosition(Physics.gravity / FloatPointAmount, this.transform.position, ForceMode.Acceleration);
 
-        float waveHeight = WaveManager.instance.GetWaveHeight(this.transform.position.x);
+        float waveHeight = WaveManager.instance.GetWaveHeight(this.transform.position);
         if (this.transform.position.y < waveHeight)
         {
             float displacementMultiplier = Mathf.Clamp01((waveHeight - this.transform.position.y) / depthBeforeSubmerged) * displacementAmount;
