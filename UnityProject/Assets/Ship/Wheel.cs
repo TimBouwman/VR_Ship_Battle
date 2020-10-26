@@ -5,16 +5,18 @@ using UnityEngine;
 /// <summary>
 /// 
 /// </summary>
+[ExecuteInEditMode]
 public class Wheel : MonoBehaviour
 {
     #region Variables
     [SerializeField] private Rigidbody rb = null;
     [SerializeField] private Transform turnPos = null;
     [SerializeField] private float turnForce = 1f;
+    private Quaternion oldRotation = Quaternion.identity;
     #endregion
 
     #region Unity Methods
-    private void FixedUpdate()
+    private void Update()
     {
         ApplyRotation();
     }
@@ -23,11 +25,8 @@ public class Wheel : MonoBehaviour
     #region Custom Methods
     private void ApplyRotation()
     {
-        /*
-        float turnForceMultiplier = this.transform.rotation.z / 100;
-        rb.angularVelocity = new Vector3(0f, turnForce * turnForceMultiplier * Time.fixedDeltaTime, 0f);
-        */
-        turnPos.localRotation = Quaternion.Euler(0, 0, this.transform.rotation.eulerAngles.z);
+        turnPos.localRotation = this.transform.localRotation * oldRotation;
+        //oldRotation = this.transform.localEulerAngles;
     }
     #endregion
 }

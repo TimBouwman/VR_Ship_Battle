@@ -18,7 +18,6 @@ public class FloatPoint : MonoBehaviour
     #endregion
 
     #region Unity Methods
-
     private void FixedUpdate()
     {
         Buoyancy();
@@ -30,7 +29,8 @@ public class FloatPoint : MonoBehaviour
     {
         rb.AddForceAtPosition(Physics.gravity / FloatPointAmount, this.transform.position, ForceMode.Acceleration);
 
-        float waveHeight = WaveManager.instance.GetWaveHeight(this.transform.position);
+        float waveHeight = WaveManager.instance.GetWaveHeight(this.transform.localPosition);
+
         if (this.transform.position.y < waveHeight)
         {
             float displacementMultiplier = Mathf.Clamp01((waveHeight - this.transform.position.y) / depthBeforeSubmerged) * displacementAmount;

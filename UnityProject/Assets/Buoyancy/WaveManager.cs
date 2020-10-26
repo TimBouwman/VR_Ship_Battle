@@ -1,6 +1,5 @@
 ﻿//author: Tim Bouwman
 //Github: https://github.com/TimBouwman
-using System.Security.Permissions;
 using UnityEngine;
 
 /// <summary>
@@ -11,9 +10,11 @@ public class WaveManager : MonoBehaviour
     #region Variables
     public static WaveManager instance;
 
-    [SerializeField] private Vector4 timeScale;
-    [SerializeField] private float phase, gravity, depth, amplitude1, amplitude2, amplitude3, amplitude4;
-    [SerializeField] private Vector3 direction1, direction2, direction3, direction4;
+    /* Gerstner wave
+    [SerializeField] private Vector4 timeScale = Vector4.zero;
+    [SerializeField] private float phase = 0f, gravity = 0f, depth = 0f, amplitude1 = 0f, amplitude2 = 0f, amplitude3 = 0f, amplitude4 = 0f;
+    [SerializeField] private Vector3 direction1 = Vector3.zero, direction2 = Vector3.zero, direction3 = Vector3.zero, direction4 = Vector3.zero;
+    */
     #endregion
 
     #region Singleton
@@ -33,8 +34,13 @@ public class WaveManager : MonoBehaviour
     #region Custom Methods
     public float GetWaveHeight(Vector3 pos)
     {
-        return GerstnerDisplacement(pos, phase, timeScale * Time.time, gravity, depth, amplitude1, amplitude2, amplitude3, amplitude4, direction1, direction2, direction3, direction4).y;
+        return 0f;
     }
+
+
+    #endregion
+
+    /* Gerstner wave
     private float Frequenty(float depth, Vector3 direction, float gravity)
     {
         float x = Mathf.Sqrt(Mathf.Pow(direction.x, 2) + Mathf.Pow(direction.y, 2) + Mathf.Pow(direction.z, 2));
@@ -77,4 +83,5 @@ public class WaveManager : MonoBehaviour
         return (x + y) + position;
     }
     #endregion
+    */
 }
