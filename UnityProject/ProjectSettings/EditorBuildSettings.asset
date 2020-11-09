@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Voice Recognition/Test Scene Voice Recognition.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
-  m_configObjects: {}
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: d90133c2e4d32bb47a3cb86860ae3ed3,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: c98a0ebd660707841acf92597bc96250,
+      type: 2}
